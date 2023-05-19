@@ -1285,10 +1285,10 @@ function Enable-DCAzureADPIMRole {
         Write-Verbose -Verbose -Message 'Connecting to Azure AD...'
 
         # Get token for MS Graph by prompting for MFA.
-        $MsResponse = Get-MsalToken -Scopes @('https://graph.microsoft.com/.default') -ClientId "1b730954-1685-4b74-9bfd-dac224a7b894" -RedirectUri "urn:ietf:wg:oauth:2.0:oob" -Authority 'https://login.microsoftonline.com/common' -Interactive -ExtraQueryParameters @{claims = '{"access_token" : {"amr": { "values": ["mfa"] }}}' }
+        $MsResponse = Get-MsalToken -Scopes @('https://graph.microsoft.com/.default') -ClientId "1b730954-1685-4b74-9bfd-dac224a7b894" -Authority 'https://login.microsoftonline.com/common' -Interactive -ExtraQueryParameters @{claims = '{"access_token" : {"amr": { "values": ["mfa"] }}}' }
 
         # Get token for AAD Graph.
-        $AadResponse = Get-MsalToken -Scopes @('https://graph.windows.net/.default') -ClientId "1b730954-1685-4b74-9bfd-dac224a7b894" -RedirectUri "urn:ietf:wg:oauth:2.0:oob" -Authority 'https://login.microsoftonline.com/common'
+        $AadResponse = Get-MsalToken -Scopes @('https://graph.windows.net/.default') -ClientId "1b730954-1685-4b74-9bfd-dac224a7b894" -Authority 'https://login.microsoftonline.com/common'
 
         $AccountId = $AadResponse.Account.HomeAccountId.ObjectId
         $TenantId = $AadResponse.Account.HomeAccountId.TenantId
